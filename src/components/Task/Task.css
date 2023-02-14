@@ -1,0 +1,15 @@
+.task {
+    width: 100%;
+    padding: 4px 12px;
+    margin-bottom: 12px;
+    background-color: darkgoldenrod;
+    color: white;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.task button {
+    border: none;
+    color: red;
+}

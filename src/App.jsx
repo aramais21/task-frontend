@@ -1,24 +1,53 @@
-import logo from './logo.svg';
+import { useState, useEffect } from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom';
+
+import {
+  LoginPage,
+  ErrorPage,
+  SignUpPage,
+  HomePage
+} from './pages';
+import {getToken, setToken} from "./helpers";
+
 import './App.css';
 
-function App() {
+const App = () => {
+  const [isAuthorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    const token = getToken();
+    if (token) {
+      setAuthorized(true);
+    } else {
+      setAuthorized(false)
+    }
+  }, []);
+
+  const unauthorizedRouter = createBrowserRouter([
+    {
+      path: "/signup",
+      element: <SignUpPage setAuthorized={setAuthorized}/>,
+      errorElement: <ErrorPage />
+    },
+    {
+      path: "/*",
+      element: <LoginPage setAuthorized={setAuthorized} />,
+      errorElement: <ErrorPage />
+    },
+  ]);
+
+  const authorizedRouter = createBrowserRouter([
+    {
+      path: "/*",
+      element: <HomePage />
+    }
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <RouterProvider router={isAuthorized ? authorizedRouter : unauthorizedRouter} />
   );
 }
 
