@@ -1,0 +1,20 @@
+.text {
+    padding: 6px 0;
+}
+
+.heading {
+    margin: 24px 0 48px;
+    display: flex;
+    align-items: center;
+    flex-flow: column nowrap;
+}
+
+.list {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.date {
+    margin: 0px auto 24px !important;
+}
